@@ -193,6 +193,7 @@ namespace ActiveRecordMembership.Entities
                 EncryptedPassword = HashedPassword;
                 OldSalt = "";
                 LastPasswordChangedDate = DateTime.Now;
+                ForceChangePassword = false;
                 changePasswordSucceeded = true;
             }
             catch (Exception)
