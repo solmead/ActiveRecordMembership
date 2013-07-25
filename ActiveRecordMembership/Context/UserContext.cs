@@ -56,9 +56,15 @@ namespace ActiveRecordMembership.Context
         {
             get
             {
-                if (_currentSecurityUser==null)
+                //var uname = "";
+                //if (System.Web.HttpContext.Current != null && HttpContext.Current.User.Identity != null)
+                //{
+                //    uname = HttpContext.Current.User.Identity.Name;
+                //}
+                //var mu = System.Web.Security.Membership.GetUser(false);
+                if (_currentSecurityUser == null)// || (uname != "" && _currentSecurityUser.Username != uname))
                 {
-                    if (CachedSecurityUser == null)
+                    if (CachedSecurityUser == null)// || (uname != "" && CachedSecurityUser.Username != uname))
                     {
                         var u = SecurityUser.CurrentUser(this);
                         if (u != null)
