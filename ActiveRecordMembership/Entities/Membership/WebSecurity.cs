@@ -80,13 +80,55 @@ namespace ActiveRecordMembership.Entities.Membership
         {
             Success, Failure
         }
+        public static void ClearAuthCookie()
+        {
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie.HttpOnly = true;
+            cookie.Path = HttpContext.Current.Request.ApplicationPath;
+            cookie.Secure = string.Equals("https", HttpContext.Current.Request.Url.Scheme, StringComparison.OrdinalIgnoreCase);
+            // the browser will ignore the cookie if there are fewer than two dots
+            // see cookie spec - http://curl.haxx.se/rfc/cookie_spec.html
+            if (HttpContext.Current.Request.Url.Host.Split('.').Length > 2)
+            {
+                // by default the domain will be the host, so www.site.com will get site.com
+                // this may be a problem if we have clientA.site.com and clientB.site.com
+                // the following line will force the full domain name
+                cookie.Domain = HttpContext.Current.Request.Url.Host;
+            }
+
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
+        }
+        public static void SetAuthCookie(string username, bool rememberMe)
+        {
+            // replacement for FormsAuthentication.SetAuthCookie(user.UserName, false);
+            // as that fails to limit the cookie by domain & path and fails.
+
+            var cookie = FormsAuthentication.GetAuthCookie(username, false);
+            cookie.HttpOnly = true;
+            cookie.Path = HttpContext.Current.Request.ApplicationPath;
+            cookie.Secure = string.Equals("https", HttpContext.Current.Request.Url.Scheme, StringComparison.OrdinalIgnoreCase);
+
+            // the browser will ignore the cookie if there are fewer than two dots
+            // see cookie spec - http://curl.haxx.se/rfc/cookie_spec.html
+            if (HttpContext.Current.Request.Url.Host.Split('.').Length > 2)
+            {
+                // by default the domain will be the host, so www.site.com will get site.com
+                // this may be a problem if we have clientA.site.com and clientB.site.com
+                // the following line will force the full domain name
+                cookie.Domain = HttpContext.Current.Request.Url.Host;
+            }
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
 
         public static MembershipLoginStatus Login(string Username, string Password, bool RememberMe)
         {
             UserContext.Current.CurrentSecurityUser = null;
             if (System.Web.Security.Membership.ValidateUser(Username, Password))
             {
-                FormsAuthentication.SetAuthCookie(Username, RememberMe);
+                SetAuthCookie(Username, RememberMe);
+                //FormsAuthentication.SetAuthCookie(Username, RememberMe);
 
                 var u = SecurityUser.LoadByName(UserContext.Current, Username);
                 u.AddTrackingEvent(DateTime.Now, TrackType.LoggedIn, Request.UserHostAddress);
@@ -103,11 +145,22 @@ namespace ActiveRecordMembership.Entities.Membership
 
         public static void Logout()
         {
-            var u = SecurityUser.Load(UserContext.Current, CurrentUser().Id);
-            u.AddTrackingEvent(DateTime.Now, TrackType.LoggedOut, Request.UserHostAddress);
-            u.LastActivityDate = DateTime.Now;
-            u.Save(UserContext.Current);
+            if (CurrentUser() != null && CurrentUser().Id!=0)
+            {
+                try
+                {
+                    var u = SecurityUser.Load(UserContext.Current, CurrentUser().Id);
+                    u.AddTrackingEvent(DateTime.Now, TrackType.LoggedOut, Request.UserHostAddress);
+                    u.LastActivityDate = DateTime.Now;
+                    u.Save(UserContext.Current);
+                }
+                catch (Exception)
+                {
+                    
+                }
+            }
             FormsAuthentication.SignOut();
+            ClearAuthCookie();
             UserContext.Current.CurrentSecurityUser = null;
         }
 
