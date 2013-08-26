@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ActiveRecord.CodeFirst;
 using ActiveRecordMembership.Context;
@@ -20,7 +21,14 @@ namespace ActiveRecordMembership.Entities
         public SecurityUser()
         {
             UserTrackings = new List<UserTracking>();
-            
+            CreateDate = DateTime.Now;
+            LastPasswordChangedDate = DateTime.Now;
+            PasswordFailuresSinceLastSuccess = 0;
+            LastLoginDate = DateTime.Now;
+            LastActivityDate = DateTime.Now;
+            LastLockoutDate = DateTime.Now;
+            LastPasswordFailureDate = DateTime.Now;
+
         }
         [ScaffoldColumn(false)]
         [Key]
@@ -117,7 +125,12 @@ namespace ActiveRecordMembership.Entities
 
         public bool SecuritySettingAtLeast(System.Data.Entity.DbContext db,string areaName, SecurityLevelEnum minimumLevel)
         {
-            return (SecurityRole.GetSettingByArea(db,areaName).Level >= minimumLevel);
+            if (SecurityRole != null)
+            {
+
+                return (SecurityRole.GetSettingByArea(db, areaName).Level >= minimumLevel);
+            }
+            return false;
         }
         public static IQueryable< SecurityUser>  GetListOrdered(System.Data.Entity.DbContext db)
         {
@@ -143,11 +156,16 @@ namespace ActiveRecordMembership.Entities
             SecurityUser user = null;
             try
             {
-                var u = System.Web.Security.Membership.GetUser(false);
-                if (u != null)
+                var uname = "";
+                if (System.Web.HttpContext.Current != null && HttpContext.Current.User.Identity != null)
+                {
+                    uname = HttpContext.Current.User.Identity.Name;
+                }
+                //var u = System.Web.Security.Membership.GetUser(false);
+                if (uname != "")
                 {
                     var users = (from SecurityUser us in db.Set<SecurityUser>()
-                                 where us.Id == (int)u.ProviderUserKey
+                                 where us.Username == uname
                                  select us)
                         .Include(us => us.SecurityRole)
                         .Include(us => us.SecurityRole.SecuritySettings)
@@ -193,6 +211,7 @@ namespace ActiveRecordMembership.Entities
                 EncryptedPassword = HashedPassword;
                 OldSalt = "";
                 LastPasswordChangedDate = DateTime.Now;
+                ForceChangePassword = false;
                 changePasswordSucceeded = true;
             }
             catch (Exception)
