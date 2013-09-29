@@ -9,7 +9,7 @@ using HttpObjectCaching;
 
 namespace ActiveRecordMembership.Context
 {
-    public class UserContext : ActiveRecord.CodeFirst.Context
+    public class UserContext : ActiveRecord.CodeFirst.SimpleContext
     {
         private SecurityUser _currentSecurityUser = null;
 
