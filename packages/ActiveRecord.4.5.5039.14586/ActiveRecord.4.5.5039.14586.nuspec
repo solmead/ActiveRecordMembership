@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ActiveRecord</id>
+    <version>4.5.5039.14586</version>
+    <title>ActiveRecord</title>
+    <authors>Solmead Productions</authors>
+    <owners>Solmead Productions</owners>
+    <licenseUrl>https://github.com/solmead/ActiveRecord/blob/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/solmead/ActiveRecord</projectUrl>
+    <iconUrl>https://github.com/solmead/ActiveRecord</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ActiveRecord Data Access</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <dependencies>
+      <dependency id="EntityFramework" version="5.0.0" />
+      <dependency id="HttpObjectCaching" version="4.6.5007.19074" />
+    </dependencies>
+  </metadata>
+</package>

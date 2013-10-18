@@ -1,1 +1,1 @@
-"..\.nuget\nuget\" pack ActiveRecordMembership.csproj -IncludeReferencedProjects
+"..\.nuget\nuget" pack ActiveRecordMembership.csproj -IncludeReferencedProjects

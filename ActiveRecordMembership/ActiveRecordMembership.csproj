@@ -12,8 +12,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\ISOC Projects\Folgers\Sites\stage.folgers.isoc.net\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,12 +45,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActiveRecord">
+      <HintPath>..\packages\ActiveRecord.4.5.5039.14586\lib\net45\ActiveRecord.dll</HintPath>
+    </Reference>
     <Reference Include="DataAnnotationsExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="HttpObjectCaching">
+      <HintPath>..\packages\HttpObjectCaching.4.6.5007.19074\lib\net40\HttpObjectCaching.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -109,19 +115,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ActiveRecordMembership.nuspec" />
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="PackNuget.bat" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\ActiveRecord\ActiveRecord\ActiveRecord.vbproj">
-      <Project>{7439063b-8e74-46f0-a7b8-0c2d0f2003e0}</Project>
-      <Name>ActiveRecord</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\HttpObjectCaching\HttpObjectCaching\HttpObjectCaching.csproj">
-      <Project>{f892df2d-7a09-481b-b872-738b5af15cb5}</Project>
-      <Name>HttpObjectCaching</Name>
-    </ProjectReference>
+    <Content Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

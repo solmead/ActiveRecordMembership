@@ -1,0 +1,81 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+ActiveRecord
+</name>
+</assembly>
+<members>
+<member name="P:ActiveRecord.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:ActiveRecord.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:ActiveRecord.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:ActiveRecord.IRecord">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.GetList(System.Data.Entity.DbContext)">
+	<summary>
+ Get Queryable entry for current type
+ </summary>
+	<param name="db">Data Context</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.Load(System.Data.Entity.DbContext,System.Int32,System.Boolean)">
+	<summary>
+ Gets requested item, uses find on DbSet
+ </summary>
+	<param name="db">Code First Data context</param>
+	<param name="id">Id of item to find</param>
+	<param name="returnNothing">If item is not found return null or nothing</param>
+	<returns>Returns item found, by default if item is not found returns empty item</returns>
+	<remarks></remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.DeletePartial(System.Data.Entity.DbContext)">
+	<summary>
+ Marks that this item should be deleted, but does not trigger save changes in the context
+ </summary>
+	<param name="db"></param>
+	<remarks>This should be used when you want to delete an item but not trigger an additional save changes, the protected handle functions should only use this for other objects</remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.SavePartial(System.Data.Entity.DbContext)">
+	<summary>
+ Marks that this item should be inserted/updated, but does not trigger SaveChanges on context
+ </summary>
+	<param name="db"></param>
+	<remarks>This should be used when you want to insert an item or trigger an item should be saved, the protected handle function should only use this</remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.Save(System.Data.Entity.DbContext)">
+	<summary>
+ Marks item should be saved, and triggers SaveCanges to submit all changes on the current context
+ </summary>
+	<param name="db"></param>
+	<remarks>This should not be used from inside the protected handle functions</remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.Delete(System.Data.Entity.DbContext,System.Int32)">
+	<summary>
+ Marks an item by it's id should be deleted then triggers all changes on the context should be done to the database
+ </summary>
+	<param name="db"></param>
+	<param name="id">Id of item to delete</param>
+	<remarks>This should not be used from inside the protected handle functions. also this triggers a load from the db first</remarks>
+</member><member name="M:ActiveRecord.CodeFirst.Record`1.Delete(System.Data.Entity.DbContext)">
+	<summary>
+ Marks an item should be deleted then triggers all changes on the context should be done to the database
+ </summary>
+	<param name="db"></param>
+	<remarks>This should not be used from inside the protected handle functions</remarks>
+</member><member name="T:ActiveRecord.CodeFirst.Record`1">
+	<summary>
+ This is inherited by a poco object wanting to support the ActiveRecord Pattern
+ </summary>
+	<typeparam name="TT">The poco type, required so that the ActiveRecord function returns the correct type</typeparam>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
