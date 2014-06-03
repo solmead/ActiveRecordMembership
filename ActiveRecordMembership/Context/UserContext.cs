@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
+using ActiveRecord.CodeFirst;
 using ActiveRecordMembership.Entities;
 using HttpObjectCaching;
 
 namespace ActiveRecordMembership.Context
 {
-    public class UserContext : ActiveRecord.CodeFirst.SimpleContext
+    public class UserContext : ActiveRecord.CodeFirst.SimpleContext<UserContext>
     {
         private SecurityUser _currentSecurityUser = null;
 
@@ -25,13 +26,7 @@ namespace ActiveRecordMembership.Context
         {
             get
             {
-                var context = Cache.GetItem<UserContext>(CacheArea.Request, "UserContext");
-                if (context == null)
-                {
-                    context = new UserContext();
-                    Cache.SetItem(CacheArea.Request, "UserContext", context);
-                }
-                return context;
+                return Cache.GetItem<UserContext>(CacheArea.Request, "UserContext", () => new UserContext());
             }
         }
         public UserContext() : base("name=DefaultConnection")
