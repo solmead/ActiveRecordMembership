@@ -19,9 +19,10 @@ namespace ActiveRecordMembership.Context
         public DbSet<SecurityArea> SecurityAreas { get; set; }
         public DbSet<SecuritySetting> SecuritySettings { get; set; }
         public DbSet<UserTracking> UserTrackings { get; set; }
-        
-   
-        
+        //public DbSet<Setting> Settings { get; set; }
+
+
+
         public static UserContext Current
         {
             get

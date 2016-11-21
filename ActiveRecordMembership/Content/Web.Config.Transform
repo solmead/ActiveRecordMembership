@@ -1,0 +1,33 @@
+﻿<configuration>
+  <configSections>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+      <section name="ActiveRecordMembership.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  
+  <applicationSettings>
+    <ActiveRecordMembership.Properties.Settings>
+      <setting name="MaxInvalidPasswordAttempts" serializeAs="String">
+        <value>5</value>
+      </setting>
+      <setting name="MinRequiredNonAlphanumericCharacters" serializeAs="String">
+        <value>0</value>
+      </setting>
+      <setting name="MinRequiredPasswordLength" serializeAs="String">
+        <value>6</value>
+      </setting>
+      <setting name="PasswordAttemptWindow" serializeAs="String">
+        <value>0</value>
+      </setting>
+      <setting name="PasswordFormat" serializeAs="String">
+        <value>Hashed</value>
+      </setting>
+      <setting name="PasswordStrengthRegularExpression" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="RequiresUniqueEmail" serializeAs="String">
+        <value>False</value>
+      </setting>
+    </ActiveRecordMembership.Properties.Settings>
+  </applicationSettings>
+</configuration>

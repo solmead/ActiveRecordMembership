@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Security;
 using ActiveRecordMembership.Context;
+using ActiveRecordMembership.Properties;
 
 namespace ActiveRecordMembership.Entities.Membership
 {
@@ -25,37 +26,37 @@ namespace ActiveRecordMembership.Entities.Membership
 
         public override int MaxInvalidPasswordAttempts
         {
-            get { return 5; }
+            get { return Settings.Default.MaxInvalidPasswordAttempts; }
         }
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { return 0; }
+            get { return Settings.Default.MinRequiredNonAlphanumericCharacters; }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { return 6; }
+            get { return Settings.Default.MinRequiredPasswordLength; }
         }
 
         public override int PasswordAttemptWindow
         {
-            get { return 0; }
+            get { return Settings.Default.PasswordAttemptWindow; }
         }
 
         public override MembershipPasswordFormat PasswordFormat
         {
-            get { return MembershipPasswordFormat.Hashed; }
+            get { return Settings.Default.PasswordFormat; }
         }
 
         public override string PasswordStrengthRegularExpression
         {
-            get { return String.Empty; }
+            get { return Settings.Default.PasswordStrengthRegularExpression; }
         }
 
         public override bool RequiresUniqueEmail
         {
-            get { return false; }
+            get { return Settings.Default.RequiresUniqueEmail; }
         }
 
         #endregion
@@ -183,6 +184,7 @@ namespace ActiveRecordMembership.Entities.Membership
                         securityUser.LastPasswordFailureDate = DateTime.Now;
                         securityUser.LastLockoutDate = DateTime.Now;
                         securityUser.IsLockedOut = true;
+                        //throw new Exception("Please try using the forgot password feature.");
                     }
                 }
                 

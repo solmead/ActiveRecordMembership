@@ -118,17 +118,28 @@
     <Compile Include="Entities\SecurityArea.cs" />
     <Compile Include="Entities\SecuritySetting.cs" />
     <Compile Include="Entities\SecurityUser.cs" />
+    <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\UserTracking.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ActiveRecordMembership.nuspec" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="PackNuget.bat" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Web.Config.Transform" />
     <Content Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
